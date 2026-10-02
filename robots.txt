@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tiny-house-pulligny.vercel.app/sitemap.xml
