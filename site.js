@@ -55,7 +55,7 @@
   function init() {
     var base = 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/';
     loadScript(base + 'index.global.min.js')
-      .then(function () { return loadScript(base + 'locales-all.global.min.js'); })
+      .then(function () { return loadScript('https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales-all.global.min.js'); })
       .then(function () { return fetch(cal.getAttribute('data-calendar'), { cache: 'no-store' }); })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
@@ -67,6 +67,10 @@
           eventColor: '#9aa39e'
         });
         c.render();
+        var lg = { fr: ['Réservé Airbnb', 'Réservé Booking', 'Fermé'], en: ['Booked (Airbnb)', 'Booked (Booking)', 'Closed'],
+          de: ['Belegt (Airbnb)', 'Belegt (Booking)', 'Geschlossen'], nl: ['Bezet (Airbnb)', 'Bezet (Booking)', 'Gesloten'] }[lang] || ['Airbnb', 'Booking', '—'];
+        var sw = function (c) { return '<span style="display:inline-block;width:12px;height:12px;border-radius:3px;margin:0 6px 0 14px;vertical-align:middle;background:' + c + '"></span>'; };
+        cal.insertAdjacentHTML('beforebegin', '<p class="small">' + sw('#ff5a5f') + lg[0] + sw('#0071c2') + lg[1] + sw('#888') + lg[2] + '</p>');
       })
       .catch(fail);
   }
